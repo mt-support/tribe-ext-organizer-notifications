@@ -76,18 +76,33 @@ class Tribe__Extension__Organizer_Notifications extends Tribe__Extension {
    }
 
     /**
-     * Get organizer's email address.
+     * Get all organizer's email addresses
      *
      * @param $post_id
-     * @return string
+     * @return array
      */
     private function get_recipient( $post_id ) {
 
-        // Get the organizer's email
-        $to = html_entity_decode( tribe_get_organizer_email( $post_id ), ENT_COMPAT, 'UTF-8' );
+        //get all organizers asociated to the post
+        $organizers_ids = tribe_get_organizer_ids( $post_id );
 
-        // Return valid email, or empty string
-        return ( is_email( $to ) ) ? $to : '';
+        $to = array();
+
+        //get the email for each organizer
+        foreach ( $organizers_ids as $organizer_id ) {
+            $organizer_email = tribe_get_organizer_email( $organizer_id, false );
+
+            //make sure it's a valid email
+            if ( is_email( $organizer_email ) ) {
+                $to[] = $organizer_email;
+            }
+        }
+
+        if ( empty( $to ) ) {
+            return '';
+        }
+        
+        return $to;
     }
 
     /**
