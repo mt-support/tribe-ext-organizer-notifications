@@ -20,122 +20,122 @@ if ( class_exists( 'Tribe__Extension' ) ) {
  */
 class Tribe__Extension__Organizer_Notifications extends Tribe__Extension {
 
-    /**
-     * Setup the Extension's properties.
-     */
-    public function construct() {
-        $this->add_required_plugin( 'Tribe__Tickets__Main', '4.11.1' );
-    }
+	/**
+	 * Setup the Extension's properties.
+	 */
+	public function construct() {
+		$this->add_required_plugin( 'Tribe__Tickets__Main', '4.11.1' );
+	}
 
-    /**
-     * Extension initialization and hooks.
-     */
-    public function init() {
-        // RSVP
-        add_action( 'event_tickets_rsvp_tickets_generated', [$this, 'generate_email'],     10, 2 );
+	/**
+	 * Extension initialization and hooks.
+	 */
+	public function init() {
+		// RSVP
+		add_action( 'event_tickets_rsvp_tickets_generated', [$this, 'generate_email'],     10, 2 );
 
-        // WooCommerce
-        add_action( 'event_ticket_woo_attendee_created',    [$this, 'generate_email'],     10, 2 );
+		// WooCommerce
+		add_action( 'event_ticket_woo_attendee_created',    [$this, 'generate_email'],     10, 2 );
 
-        // Tribe Commerce
-        add_action( 'event_tickets_tpp_tickets_generated',  [$this, 'generate_email'],     10, 2 );
+		// Tribe Commerce
+		add_action( 'event_tickets_tpp_tickets_generated',  [$this, 'generate_email'],     10, 2 );
 
-        // EDD
-        add_action( 'event_ticket_edd_attendee_created',    [$this, 'generate_email'],     10, 2 );
-    }
+		// EDD
+		add_action( 'event_ticket_edd_attendee_created',    [$this, 'generate_email'],     10, 2 );
+	}
 
-    /**
-     * Generate organizer email.
-     *
-     * @param $other
-     * @param $event_id
-     * @return string
-     */
-    public function generate_email( $other = null, $event_id = null ) {
+	/**
+	 * Generate organizer email.
+	 *
+	 * @param $other
+	 * @param $event_id
+	 * @return string
+	 */
+	public function generate_email( $other = null, $event_id = null ) {
 
-        // Get the organizer email address.
-        $to = $this->get_recipient( $event_id );
+		// Get the organizer email address.
+		$to = $this->get_recipient( $event_id );
 
-        // Bail if there's not a valid email for the organizer.
-        if ( '' === $to ) return;
+		// Bail if there's not a valid email for the organizer.
+		if ( '' === $to ) return;
 
-        // Get the email subject.
-        $subject = $this->get_subject( $event_id );
+		// Get the email subject.
+		$subject = $this->get_subject( $event_id );
 
-        // Get the email content.
-        $content = $this->get_content( $event_id );
+		// Get the email content.
+		$content = $this->get_content( $event_id );
 
-        // Generate notification email.
-        wp_mail( $to, $subject, $content, ['Content-type: text/html'] );
+		// Generate notification email.
+		wp_mail( $to, $subject, $content, ['Content-type: text/html'] );
    }
 
-    /**
-     * Get all organizer's email addresses
-     *
-     * @param $post_id
-     * @return array
-     */
-    private function get_recipient( $post_id ) {
+	/**
+	 * Get all organizer's email addresses
+	 *
+	 * @param $post_id
+	 * @return array
+	 */
+	private function get_recipient( $post_id ) {
 
-        //get all organizers asociated to the post
-        $organizers_ids = tribe_get_organizer_ids( $post_id );
+		//get all organizers asociated to the post
+		$organizers_ids = tribe_get_organizer_ids( $post_id );
 
-        $to = array();
+		$to = array();
 
-        //get the email for each organizer
-        foreach ( $organizers_ids as $organizer_id ) {
-            $organizer_email = tribe_get_organizer_email( $organizer_id, false );
+		//get the email for each organizer
+		foreach ( $organizers_ids as $organizer_id ) {
+			$organizer_email = tribe_get_organizer_email( $organizer_id, false );
 
-            //make sure it's a valid email
-            if ( is_email( $organizer_email ) ) {
-                $to[] = $organizer_email;
-            }
-        }
+			//make sure it's a valid email
+			if ( is_email( $organizer_email ) ) {
+				$to[] = $organizer_email;
+			}
+		}
 
-        if ( empty( $to ) ) {
-            return '';
-        }
-        
-        return $to;
-    }
+		if ( empty( $to ) ) {
+			return '';
+		}
 
-    /**
-     * Get email subject.
-     *
-     * @param $post_id
-     * @return string
-     */
-    private function get_subject( $post_id ) {
+		return $to;
+	}
 
-        // Filter to allow users to modify the email subject.
-        $subject = apply_filters('tribe-ext-organizer-notifications-subject', 'Your event %1$s has new attendee(s) - %2$s');
+	/**
+	 * Get email subject.
+	 *
+	 * @param $post_id
+	 * @return string
+	 */
+	private function get_subject( $post_id ) {
 
-        // Return the subject with event and site names injected.
-        return sprintf( __( $subject, 'tribe-extension' ),  get_the_title( $post_id ), get_bloginfo( 'name' ) );
-    }
+		// Filter to allow users to modify the email subject.
+		$subject = apply_filters('tribe-ext-organizer-notifications-subject', 'Your event %1$s has new attendee(s) - %2$s');
 
-    /**
-     * Get link to attendees list.
-     *
-     * @param $post_id
-     * @return string
-     */
-    private function get_content( $post_id ) {
+		// Return the subject with event and site names injected.
+		return sprintf( __( $subject, 'tribe-extension' ),  get_the_title( $post_id ), get_bloginfo( 'name' ) );
+	}
 
-        // The url to the attendee page.
-        $url = admin_url( 'edit.php?post_type=tribe_events&page=tickets-attendees&event_id=' . $post_id );
+	/**
+	 * Get link to attendees list.
+	 *
+	 * @param $post_id
+	 * @return string
+	 */
+	private function get_content( $post_id ) {
 
-        // Default link text
-        $default_link_text = "View the event's attendee list";
+		// The url to the attendee page.
+		$url = admin_url( 'edit.php?post_type=tribe_events&page=tickets-attendees&event_id=' . $post_id );
 
-        // Filter to allow users to modify the link text.
-        $link_text = apply_filters( 'tribe-ext-organizer-notifications-link-text', $default_link_text );
+		// Default link text
+		$default_link_text = "View the event's attendee list";
 
-        // Define the link markup.
-        $output = sprintf( '<a href="%s">%s</a>', esc_url( $url ), esc_html__( $link_text, 'tribe-extension' ) );
+		// Filter to allow users to modify the link text.
+		$link_text = apply_filters( 'tribe-ext-organizer-notifications-link-text', $default_link_text );
 
-        // Return link markup.
-        return apply_filters( 'tribe-ext-organizer-notifications-content', $output );
-    }
+		// Define the link markup.
+		$output = sprintf( '<a href="%s">%s</a>', esc_url( $url ), esc_html__( $link_text, 'tribe-extension' ) );
+
+		// Return link markup.
+		return apply_filters( 'tribe-ext-organizer-notifications-content', $output );
+	}
 } // class
 } // class_exists
