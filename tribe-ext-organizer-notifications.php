@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name:     Event Tickets Extension: Organizer Notifications
- * Description:     This extension sends a notification to organizers when an attendee registers for their event.
- * Version:         1.0.0
- * Extension Class: Tribe__Extension__Organizer_Notifications
- * Author:          Modern Tribe, Inc.
- * Author URI:      http://m.tri.be/1971
- * License:         GPLv2 or later
- * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
+ * Plugin Name:       Event Tickets Extension: Organizer Notifications
+ * Description:       This extension sends a notification to organizers when an attendee registers for their event.
+ * Version:           TBD
+ * Plugin URI:        https://theeventscalendar.com/extensions/organizer-notifications/
+ * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-organizer-notifications
+ * Extension Class:   Tribe__Extension__Organizer_Notifications
+ * Author:            Modern Tribe, Inc.
+ * Author URI:        http://m.tri.be/1971
+ * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 // Do not load unless Tribe Common is fully loaded.
-if ( ! class_exists( 'Tribe__Extension' ) ) {
-   return;
-}
+if ( class_exists( 'Tribe__Extension' ) ) {
 
 /**
  * Extension main class, class begins loading on init.
@@ -24,19 +24,13 @@ class Tribe__Extension__Organizer_Notifications extends Tribe__Extension {
      * Setup the Extension's properties.
      */
     public function construct() {
-
-        // Set core plugin requirements.
         $this->add_required_plugin( 'Tribe__Tickets__Main', '4.11.1' );
-
-        // Set the extension's tec.com URL.
-        $this->set_url( 'https://theeventscalendar.com/extensions/organizer-notifications/' );
     }
 
     /**
      * Extension initialization and hooks.
      */
     public function init() {
-
         // RSVP
         add_action( 'event_tickets_rsvp_tickets_generated', [$this, 'generate_email'],     10, 2 );
 
@@ -143,4 +137,5 @@ class Tribe__Extension__Organizer_Notifications extends Tribe__Extension {
         // Return link markup.
         return apply_filters( 'tribe-ext-organizer-notifications-content', $output );
     }
-}
+} // class
+} // class_exists
