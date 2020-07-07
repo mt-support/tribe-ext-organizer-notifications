@@ -37,7 +37,7 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 = [TBD] TBD =
 
-* Feature - Add support for events with multiple organizers
+* Feature - Add support for events with multiple organizers. [EXT-212]
 
 = [1.0.0] 2020-03-18 =
 

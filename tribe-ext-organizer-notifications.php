@@ -70,7 +70,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		}
 
 		/**
-		 * Get all organizer's email addresses
+		 * Get all organizers' email addresses.
 		 *
 		 * @param $post_id
 		 *
@@ -78,23 +78,23 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		 */
 		private function get_recipient( $post_id ) {
 
-			//get all organizers asociated to the post
-			$organizers_ids = tribe_get_organizer_ids( $post_id );
+			// Get all organizers associated to the post.
+			$organizer_ids = tribe_get_organizer_ids( $post_id );
 
 			$to = [];
 
-			//get the email for each organizer
-			foreach ( $organizers_ids as $organizer_id ) {
+			// Get the email for each organizer.
+			foreach ( $organizer_ids as $organizer_id ) {
 				$organizer_email = tribe_get_organizer_email( $organizer_id, false );
 
-				//make sure it's a valid email
+				// Make sure it's a valid email.
 				if ( is_email( $organizer_email ) ) {
 					$to[] = $organizer_email;
 				}
 			}
 
 			if ( empty( $to ) ) {
-				return '';
+				return [];
 			}
 
 			return $to;
