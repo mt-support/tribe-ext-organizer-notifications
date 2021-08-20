@@ -6,8 +6,8 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/organizer-notifications/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-organizer-notifications
  * Extension Class:   Tribe__Extension__Organizer_Notifications
- * Author:            Modern Tribe, Inc.
- * Author URI:        http://m.tri.be/1971
+ * Author:            The Events Calendar
+ * Author URI:        https://evnt.is/1971
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */

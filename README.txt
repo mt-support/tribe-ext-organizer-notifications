@@ -1,9 +1,9 @@
 === The Events Calendar Extension: Organizer Notifications ===
-Contributors: ModernTribe
-Donate link: http://m.tri.be/29
+Contributors: theeventscalendar
+Donate link: https://evnt.is/29
 Tags: events, calendar
 Requires at least: 5.0
-Tested up to: 5.3.2
+Tested up to: 5.8.0
 Requires PHP: 5.6
 Stable tag: TBD
 License: GPL version 3 or any later version
