@@ -10,7 +10,7 @@
  * Author URI:        https://evnt.is/1971
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       tec-labs-organizer-notifications-content
+ * Text Domain:       tec-labs-organizer-notifications
  */
 
 // Do not load unless Tribe Common is fully loaded.
@@ -114,7 +114,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			$subject = apply_filters( 'tribe-ext-organizer-notifications-subject', 'Your event %1$s has new attendee(s) - %2$s' );
 
 			// Return the subject with event and site names injected.
-			return sprintf( __( $subject, 'tec-labs-organizer-notifications-content' ), get_the_title( $post_id ), get_bloginfo( 'name' ) );
+			return sprintf( __( $subject, 'tec-labs-organizer-notifications' ), get_the_title( $post_id ), get_bloginfo( 'name' ) );
 		}
 
 		/**
@@ -136,7 +136,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			$link_text = apply_filters( 'tribe-ext-organizer-notifications-link-text', $default_link_text );
 
 			// Define the link markup.
-			$output = sprintf( '<a href="%s">%s</a>', esc_url( $url ), esc_html__( $link_text, 'tec-labs-organizer-notifications-content' ) );
+			$output = sprintf( '<a href="%s">%s</a>', esc_url( $url ), esc_html__( $link_text, 'tec-labs-organizer-notifications' ) );
 
 			// Return link markup.
 			return apply_filters( 'tribe-ext-organizer-notifications-content', $output );
