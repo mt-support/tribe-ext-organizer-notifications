@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Event Tickets Extension: Organizer Notifications
  * Description:       This extension sends a notification to organizers when an attendee registers for their event.
- * Version:           TBD
+ * Version:           1.0.1
  * Plugin URI:        https://theeventscalendar.com/extensions/organizer-notifications/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-organizer-notifications
  * Extension Class:   Tribe__Extension__Organizer_Notifications
