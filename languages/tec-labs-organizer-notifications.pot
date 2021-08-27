@@ -1,0 +1,35 @@
+# Copyright (C) 2021 The Events Calendar
+# This file is distributed under the same license as the Event Tickets Extension: Organizer Notifications plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Event Tickets Extension: Organizer Notifications TBD\n"
+"Report-Msgid-Bugs-To: The Events Calendar <https://support.theeventscalendar.com/>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-08-27T14:27:29+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: tec-labs-organizer-notifications\n"
+
+#. Plugin Name of the plugin
+msgid "Event Tickets Extension: Organizer Notifications"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://theeventscalendar.com/extensions/organizer-notifications/"
+msgstr ""
+
+#. Description of the plugin
+msgid "This extension sends a notification to organizers when an attendee registers for their event."
+msgstr ""
+
+#. Author of the plugin
+msgid "The Events Calendar"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://evnt.is/1971"
+msgstr ""
