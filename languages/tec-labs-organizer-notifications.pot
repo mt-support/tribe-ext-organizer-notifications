@@ -19,7 +19,7 @@ msgid "Event Tickets Extension: Organizer Notifications"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://theeventscalendar.com/extensions/organizer-notifications/"
+msgid "https://theeventscalendar.com/extensions/organizer-notification-email/"
 msgstr ""
 
 #. Description of the plugin
