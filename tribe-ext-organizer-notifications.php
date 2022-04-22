@@ -42,7 +42,25 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 
 			// EDD
 			add_action( 'event_ticket_edd_attendee_created', [ $this, 'generate_email' ], 10, 2 );
+
+			// Tickets Commerce
+			add_action( 'tec_tickets_commerce_flag_action_generated_attendees', [ $this, 'generate_email_from_ticket' ], 10, 7 );			
 		}
+
+		/**
+		 * Generate organizer email from ticket
+		 *
+		 * @param $other
+		 * @param $ticket
+		 */
+		public function generate_email_from_ticket( $attendees, $ticket, $order, $new_status, $old_status ) {
+
+			// Get the Event ID the ticket is for
+			$event_id = $ticket->get_event_id();
+
+			$this->generate_email( $event_id );
+		}
+
 
 		/**
 		 * Generate organizer email.
