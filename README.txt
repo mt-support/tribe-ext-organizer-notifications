@@ -5,7 +5,7 @@ Tags: events, calendar
 Requires at least: 5.0
 Tested up to: 5.8.0
 Requires PHP: 5.6
-Stable tag: TBD
+Stable tag: 1.0.2
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,7 +35,7 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
-= [TBD] TBD =
+= [1.0.2] 2022-08-11 =
 
 * Feature - Add support for Tickets Commerce [EXT-281]
 
