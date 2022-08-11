@@ -58,9 +58,8 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			// Get the Event ID the ticket is for
 			$event_id = $ticket->get_event_id();
 
-			$this->generate_email( $event_id );
+			$this->generate_email( null, $event_id );
 		}
-
 
 		/**
 		 * Generate organizer email.
