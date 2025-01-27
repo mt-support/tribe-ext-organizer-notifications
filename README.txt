@@ -3,9 +3,9 @@ Contributors: theeventscalendar
 Donate link: https://evnt.is/29
 Tags: events, calendar
 Requires at least: 5.0
-Tested up to: 5.8.0
+Tested up to: 6.7.1
 Requires PHP: 5.6
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,6 +34,10 @@ Please visit our [extension library](https://theeventscalendar.com/extensions/) 
 We're always interested in your feedback and our [Help Desk](https://support.theeventscalendar.com/) are the best place to flag any issues. Do note, however, that the degree of support we provide for extensions like this one tends to be very limited.
 
 == Changelog ==
+
+= [1.0.3] 2025-01-27 =
+
+* Feature - The sender name and email address is now retrieved from the Email Settings.
 
 = [1.0.2] 2022-08-11 =
 

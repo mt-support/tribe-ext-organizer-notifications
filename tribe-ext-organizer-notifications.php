@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Event Tickets Extension: Organizer Notifications
  * Description:       This extension sends a notification to organizers when an attendee registers for their event.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Plugin URI:        https://theeventscalendar.com/extensions/organizer-notification-email/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-organizer-notifications
  * Extension Class:   Tribe__Extension__Organizer_Notifications
@@ -21,7 +21,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 	class Tribe__Extension__Organizer_Notifications extends Tribe__Extension {
 
 		/**
-		 * Setup the Extension's properties.
+		 * Set up the Extension's properties.
 		 */
 		public function construct() {
 			$this->add_required_plugin( 'Tribe__Tickets__Main', '4.11.1' );
@@ -44,16 +44,16 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			add_action( 'event_ticket_edd_attendee_created', [ $this, 'generate_email' ], 10, 2 );
 
 			// Tickets Commerce
-			add_action( 'tec_tickets_commerce_flag_action_generated_attendees', [ $this, 'generate_email_from_ticket' ], 10, 7 );			
+			add_action( 'tec_tickets_commerce_flag_action_generated_attendees', [ $this, 'generate_email_from_ticket' ], 10, 2 );
 		}
 
 		/**
-		 * Generate organizer email from ticket
+		 * Generate organizer email from ticket.
 		 *
-		 * @param $other
-		 * @param $ticket
+		 * @param mixed $attendee The generated attendee.
+		 * @param mixed $ticket   The ticket the attendee is generated for.
 		 */
-		public function generate_email_from_ticket( $attendees, $ticket, $order, $new_status, $old_status ) {
+		public function generate_email_from_ticket( $attendee, $ticket ) {
 
 			// Get the Event ID the ticket is for
 			$event_id = $ticket->get_event_id();
@@ -64,8 +64,8 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Generate organizer email.
 		 *
-		 * @param $other
-		 * @param $event_id
+		 * @param mixed $other    Irrelevant.
+		 * @param int   $event_id The post ID of the event.
 		 */
 		public function generate_email( $other = null, $event_id = null ) {
 
@@ -73,7 +73,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			$to = $this->get_recipient( $event_id );
 
 			// Bail if there's not a valid email for the organizer.
-			if ( '' === $to ) {
+			if ( empty( $to ) ) {
 				return;
 			}
 
@@ -83,16 +83,24 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			// Get the email content.
 			$content = $this->get_content( $event_id );
 
+			// Get the email sender info.
+			$from_name  = tribe_get_option( 'tec-tickets-emails-sender-name', false );
+			$from_email = tribe_get_option( 'tec-tickets-emails-sender-email', false );
+
+			// Compile headers.
+			$headers[] = 'Content-type: text/html';
+			$headers[] = 'From: ' . $from_name . ' <' . $from_email . '>';
+
 			// Generate notification email.
-			wp_mail( $to, $subject, $content, [ 'Content-type: text/html' ] );
+			wp_mail( $to, $subject, $content, $headers );
 		}
 
 		/**
 		 * Get all organizers' email addresses.
 		 *
-		 * @param $post_id
+		 * @param int $post_id The post ID of the event.
 		 *
-		 * @return array
+		 * @return array An array of organizer email addresses.
 		 */
 		private function get_recipient( $post_id ) {
 
@@ -121,9 +129,9 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Get email subject.
 		 *
-		 * @param $post_id
+		 * @param int $post_id The post ID of the event.
 		 *
-		 * @return string
+		 * @return string The email subject.
 		 */
 		private function get_subject( $post_id ) {
 
@@ -137,16 +145,16 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Get link to attendees list.
 		 *
-		 * @param $post_id
+		 * @param int $post_id The post ID of the event.
 		 *
-		 * @return string
+		 * @return string Link to the attendees page with HTML markup.
 		 */
 		private function get_content( $post_id ) {
 
 			// The url to the attendee page.
 			$url = admin_url( 'edit.php?post_type=tribe_events&page=tickets-attendees&event_id=' . $post_id );
 
-			// Default link text
+			// Default link text.
 			$default_link_text = "View the event's attendee list";
 
 			// Filter to allow users to modify the link text.
