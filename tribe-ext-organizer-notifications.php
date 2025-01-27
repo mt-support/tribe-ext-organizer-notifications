@@ -50,10 +50,10 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Generate organizer email from ticket.
 		 *
-		 * @param mixed $attendees
-		 * @param mixed $ticket    The ticket the attendee is generated for.
+		 * @param mixed $attendee The generated attendee.
+		 * @param mixed $ticket   The ticket the attendee is generated for.
 		 */
-		public function generate_email_from_ticket( $attendees, $ticket ) {
+		public function generate_email_from_ticket( $attendee, $ticket ) {
 
 			// Get the Event ID the ticket is for
 			$event_id = $ticket->get_event_id();
@@ -64,7 +64,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Generate organizer email.
 		 *
-		 * @param mixed $other
+		 * @param mixed $other    Irrelevant.
 		 * @param int   $event_id The post ID of the event.
 		 */
 		public function generate_email( $other = null, $event_id = null ) {
@@ -73,7 +73,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			$to = $this->get_recipient( $event_id );
 
 			// Bail if there's not a valid email for the organizer.
-			if ( '' === $to ) {
+			if ( empty( $to ) ) {
 				return;
 			}
 
