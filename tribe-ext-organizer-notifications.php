@@ -83,8 +83,16 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			// Get the email content.
 			$content = $this->get_content( $event_id );
 
+			// Get the email sender info.
+			$from_name  = tribe_get_option( 'tec-tickets-emails-sender-name', false );
+			$from_email = tribe_get_option( 'tec-tickets-emails-sender-email', false );
+
+			// Compile headers
+			$headers[] = 'Content-type: text/html';
+			$headers[] = 'From: ' . $from_name . ' <' . $from_email . '>';
+
 			// Generate notification email.
-			wp_mail( $to, $subject, $content, [ 'Content-type: text/html' ] );
+			wp_mail( $to, $subject, $content, $headers );
 		}
 
 		/**
