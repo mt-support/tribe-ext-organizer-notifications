@@ -21,7 +21,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 	class Tribe__Extension__Organizer_Notifications extends Tribe__Extension {
 
 		/**
-		 * Setup the Extension's properties.
+		 * Set up the Extension's properties.
 		 */
 		public function construct() {
 			$this->add_required_plugin( 'Tribe__Tickets__Main', '4.11.1' );
@@ -44,16 +44,16 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			add_action( 'event_ticket_edd_attendee_created', [ $this, 'generate_email' ], 10, 2 );
 
 			// Tickets Commerce
-			add_action( 'tec_tickets_commerce_flag_action_generated_attendees', [ $this, 'generate_email_from_ticket' ], 10, 7 );			
+			add_action( 'tec_tickets_commerce_flag_action_generated_attendees', [ $this, 'generate_email_from_ticket' ], 10, 2 );
 		}
 
 		/**
-		 * Generate organizer email from ticket
+		 * Generate organizer email from ticket.
 		 *
-		 * @param $other
-		 * @param $ticket
+		 * @param mixed $attendees
+		 * @param mixed $ticket    The ticket the attendee is generated for.
 		 */
-		public function generate_email_from_ticket( $attendees, $ticket, $order, $new_status, $old_status ) {
+		public function generate_email_from_ticket( $attendees, $ticket ) {
 
 			// Get the Event ID the ticket is for
 			$event_id = $ticket->get_event_id();
@@ -64,8 +64,8 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Generate organizer email.
 		 *
-		 * @param $other
-		 * @param $event_id
+		 * @param mixed $other
+		 * @param int   $event_id The post ID of the event.
 		 */
 		public function generate_email( $other = null, $event_id = null ) {
 
@@ -87,7 +87,7 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 			$from_name  = tribe_get_option( 'tec-tickets-emails-sender-name', false );
 			$from_email = tribe_get_option( 'tec-tickets-emails-sender-email', false );
 
-			// Compile headers
+			// Compile headers.
 			$headers[] = 'Content-type: text/html';
 			$headers[] = 'From: ' . $from_name . ' <' . $from_email . '>';
 
@@ -98,9 +98,9 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Get all organizers' email addresses.
 		 *
-		 * @param $post_id
+		 * @param int $post_id The post ID of the event.
 		 *
-		 * @return array
+		 * @return array An array of organizer email addresses.
 		 */
 		private function get_recipient( $post_id ) {
 
@@ -129,9 +129,9 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Get email subject.
 		 *
-		 * @param $post_id
+		 * @param int $post_id The post ID of the event.
 		 *
-		 * @return string
+		 * @return string The email subject.
 		 */
 		private function get_subject( $post_id ) {
 
@@ -145,16 +145,16 @@ if ( class_exists( 'Tribe__Extension' ) ) {
 		/**
 		 * Get link to attendees list.
 		 *
-		 * @param $post_id
+		 * @param int $post_id The post ID of the event.
 		 *
-		 * @return string
+		 * @return string Link to the attendees page with HTML markup.
 		 */
 		private function get_content( $post_id ) {
 
 			// The url to the attendee page.
 			$url = admin_url( 'edit.php?post_type=tribe_events&page=tickets-attendees&event_id=' . $post_id );
 
-			// Default link text
+			// Default link text.
 			$default_link_text = "View the event's attendee list";
 
 			// Filter to allow users to modify the link text.
